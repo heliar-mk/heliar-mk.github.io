@@ -4,17 +4,12 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>python-challenge-level3 | heliar&#39;s blog</title>
+    <title>Emacs基本操作 | heliar&#39;s blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Kai Guan">
     
-    <meta name="description" content="题目给的hint是:
-
-One small letter, surrounded by EXACTLY three big bodyguards on each of its sides.
-
-意思就是需要找出所有左右两侧仅有三个大写字母的小写字母（需要处理的文本在注释里）
-思路：运用正则表达式做匹配">
+    <meta name="description" content="+———————————-+———————————-+———————————-+| C-x C-c               | M-x                   | 保存退出              ||                       | save-buffers-ki">
     
     
     
@@ -64,15 +59,15 @@ One small letter, surrounded by EXACTLY three big bodyguards on each of its side
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/07/05/level3/" title="python-challenge-level3" itemprop="url">python-challenge-level3</a>
+      <a href="/2014/07/05/emacs快捷键/" title="Emacs基本操作" itemprop="url">Emacs基本操作</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://heliar-mk.github.io/" title="Kai Guan">Kai Guan</a>
     </p>
   <p class="article-time">
-    <time datetime="2014-07-05T03:34:49.000Z" itemprop="datePublished">7月 5 2014</time>
-    更新日期:<time datetime="2014-07-05T08:30:48.000Z" itemprop="dateModified">7月 5 2014</time>
+    <time datetime="2014-07-05T15:06:22.000Z" itemprop="datePublished">7月 5 2014</time>
+    更新日期:<time datetime="2014-07-05T15:35:00.000Z" itemprop="dateModified">7月 5 2014</time>
     
   </p>
 </header>
@@ -84,53 +79,27 @@ One small letter, surrounded by EXACTLY three big bodyguards on each of its side
 		
 		</div>
 		
-		<p>题目给的hint是:</p>
-<blockquote>
-<p>One small letter, surrounded by EXACTLY three big bodyguards on each of its sides.</p>
-</blockquote>
-<p>意思就是需要找出所有左右两侧仅有三个大写字母的小写字母（需要处理的文本在注释里）</p>
-<p>思路：运用正则表达式做匹配，因为文本中除了大写字母就是小写字母，所以用模式”[a-z][A-Z][A-Z][A-Z][a-z][A-Z][A-Z][A-Z][a-z]”来匹配。<br>代码如下：</p>
-<p><figure class="highlight python"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-</pre></td><td class="code"><pre><span class="keyword">import</span> re
-
-<span class="function"><span class="keyword">def</span> <span class="title">find_the_letter</span><span class="params">(file)</span>:</span>
-     str=open(file,<span class="string">'r'</span>).read()
-     pattern=<span class="string">'[a-z][A-Z][A-Z][A-Z][a-z][A-Z][A-Z][A-Z][a-z]'</span>
-     letter=<span class="string">""</span>
-     <span class="keyword">for</span> match <span class="keyword">in</span> re.findall(pattern,str):
-         letter+=match[<span class="number">4</span>]
-     print(letter)
-</pre></td></tr></table></figure><br><code>re.findall()</code>以字符串返回所有能够匹配的字符，后再取字符串中的第五个字符进行拼接就得到了答案:<code>linkedlist</code></p>
-<p>此处有更好的匹配模式：[^A-Z][A-Z]{3}([a-z])[A-Z]{3}[^A-Z]<br>([a-z])表示findall函数只返回该组内的字符，另可以用<code>.join()</code>函数进行拼接<br>引用一段别人的解法：<br>“””.join(re.findall(‘[^A-Z][A-Z]{3}([a-z])[A-Z]{3}[^A-Z]’, text))”</p>
-<p>更多解法请参见：<a href="http://www.pythonchallenge.com/pcc/def/linkedlist.php" target="_blank" rel="external">pythonchallenge_level3_solve</a></p>
+		<p>+———————————-+———————————-+———————————-+<br>| C-x C-c               | M-x                   | 保存退出              |<br>|                       | save-buffers-kill-ema |                       |<br>|                       | cs                    |                       |<br>+———————————-+———————————-+———————————-+<br>| C-x C-z               | M-x                   | 挂起（最小化）        |<br>|                       | iconify-or-deiconify- |                       |<br>|                       | frame                 |                       |<br>+———————————-+———————————-+———————————-+<br>| C-x C-f               | M-x find-file         | 打开文件、目录        |<br>+———————————-+———————————-+———————————-+<br>| C-x C-r               | M-x                   | 以只读模式打开        |<br>|                       | find-file-read-only   |                       |<br>+———————————-+———————————-+———————————-+<br>| C-x i                 | M-x insert-file       | 插入文件              |<br>+———————————-+———————————-+———————————-+<br>| C-x C-s               | M-x save-buffer       | 保存                  |<br>+———————————-+———————————-+———————————-+<br>| C-x C-w               | M-x write-file        | 另存为文件            |<br>+———————————-+———————————-+———————————-+<br>| C-x RET r             | M-x                   | 以指定编码读取文件    |<br>|                       | revert-buffer-with-co |                       |<br>|                       | ding-system           |                       |<br>+———————————-+———————————-+———————————-+<br>| C-x RET f             | M-x                   | 以指定编码保存文件    |<br>|                       | set-buffer-file-codin |                       |<br>|                       | g-system              |                       |<br>+———————————-+———————————-+———————————-+<br>|                       | M-x revert-buffer     | 恢复到原始状态        |<br>+———————————-+———————————-+———————————-+</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/pychallenge/">pychallenge</a>
+  <span></span> <a href="/tags/Emacs/">Emacs</a>
   </div>
 
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/python/">python</a>
+  <a class="article-category-link" href="/categories/编辑器/">编辑器</a>
 </div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://heliar-mk.github.io/2014/07/05/level3/" data-title="python-challenge-level3 | heliar&#39;s blog" data-tsina="null" class="share clearfix">
+  <div data-url="http://heliar-mk.github.io/2014/07/05/emacs快捷键/" data-title="Emacs基本操作 | heliar&#39;s blog" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -139,14 +108,14 @@ One small letter, surrounded by EXACTLY three big bodyguards on each of its side
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2014/07/05/level4/" title="python-challenge-level4">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  python-challenge-level4</span>
+
+<div class="next">
+<a href="/2014/07/05/ctrlpvim/"  title="vim 插件 ctrlp 常用快捷键">
+ <strong>NEXT:</strong><br/> 
+ <span>vim 插件 ctrlp 常用快捷键
+</span>
 </a>
 </div>
-
 
 </nav>
 
