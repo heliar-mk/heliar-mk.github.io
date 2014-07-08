@@ -4,33 +4,14 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Emacs基本操作 | heliar&#39;s blog</title>
+    <title>python-challenge-level6 | heliar&#39;s blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Kai Guan">
     
-    <meta name="description" content="CTRL快捷键
-ALT/CMD 快捷键
-作用
+    <meta name="description" content="网页源代码中出现一个”zip”的提示，将channel替换为zip，返回的网页中出现”yes. find the zip.”的提示。猜测可能需要下载一个.zip的文件。将channel.htlm改为channel.zip，得到一个压缩文件。文件内均为文本文档。readme.txt中的内同为
 
-
-
-
-C-x C-z
-M-x iconify-or-deiconify-frame
-挂起（最小化）
-
-
-C-x C-c
-M-x save-buffers-kill-emacs
-保存退出
-
-
-C-x C-f
-M-x find-file
-打开文件、目录
-
-">
+wel">
     
     
     
@@ -80,15 +61,15 @@ M-x find-file
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/07/05/emacs快捷键/" title="Emacs基本操作" itemprop="url">Emacs基本操作</a>
+      <a href="/2014/07/05/2014-7-5-level6/" title="python-challenge-level6" itemprop="url">python-challenge-level6</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://heliar-mk.info" title="Kai Guan">Kai Guan</a>
     </p>
   <p class="article-time">
-    <time datetime="2014-07-05T15:06:22.000Z" itemprop="datePublished">7月 5 2014</time>
-    更新日期:<time datetime="2014-07-05T15:52:32.000Z" itemprop="dateModified">7月 5 2014</time>
+    <time datetime="2014-07-05T08:20:21.000Z" itemprop="datePublished">7月 5 2014</time>
+    更新日期:<time datetime="2014-07-05T08:28:08.000Z" itemprop="dateModified">7月 5 2014</time>
     
   </p>
 </header>
@@ -100,87 +81,73 @@ M-x find-file
 		
 		</div>
 		
-		<table>
-<thead>
-<tr>
-<th style="text-align:center">CTRL快捷键</th>
-<th style="text-align:center">ALT/CMD 快捷键</th>
-<th style="text-align:center">作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">C-x C-z</td>
-<td style="text-align:center">M-x iconify-or-deiconify-frame</td>
-<td style="text-align:center">挂起（最小化）</td>
-</tr>
-<tr>
-<td style="text-align:center">C-x C-c</td>
-<td style="text-align:center">M-x save-buffers-kill-emacs</td>
-<td style="text-align:center">保存退出</td>
-</tr>
-<tr>
-<td style="text-align:center">C-x C-f</td>
-<td style="text-align:center">M-x find-file</td>
-<td style="text-align:center">打开文件、目录</td>
-</tr>
-<tr>
-<td style="text-align:center">C-x C-r</td>
-<td style="text-align:center">M-x find-file-read-only</td>
-<td style="text-align:center">以只读模式打开</td>
-</tr>
-<tr>
-<td style="text-align:center">C-x C-s</td>
-<td style="text-align:center">M-x save-buffer</td>
-<td style="text-align:center">保存</td>
-</tr>
-<tr>
-<td style="text-align:center">C-x s</td>
-<td style="text-align:center">M-x save-some-buffers</td>
-<td style="text-align:center">询问，保存所有未保存的缓冲区</td>
-</tr>
-<tr>
-<td style="text-align:center">C-x C-w</td>
-<td style="text-align:center">M-x write-file</td>
-<td style="text-align:center">另存为文件</td>
-</tr>
-<tr>
-<td style="text-align:center">C-x RET r</td>
-<td style="text-align:center">M-x revert-buffer-with-coding-system</td>
-<td style="text-align:center">以指定编码读取文件</td>
-</tr>
-<tr>
-<td style="text-align:center">C-x RET f</td>
-<td style="text-align:center">M-x set-buffer-file-coding-system</td>
-<td style="text-align:center">以指定编码保存文件</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">M-x revert-buffer</td>
-<td style="text-align:center">恢复到原始状态</td>
-</tr>
-</tbody>
-</table>
+		<p>网页源代码中出现一个”zip”的提示，将channel替换为zip，返回的网页中出现”yes. find the zip.”的提示。<br>猜测可能需要下载一个.zip的文件。<br>将channel.htlm改为channel.zip，得到一个压缩文件。<br>文件内均为文本文档。<br>readme.txt中的内同为</p>
+<blockquote>
+<p>welcome to my zipped list,hint1: start from 90052,hint2: answer is inside the zip</p>
+</blockquote>
+<p>接着查看90052.txt，内容为</p>
+<blockquote>
+<p>Next nothing is 94191</p>
+</blockquote>
+<p>类似第四关的follow the chain的处理方法<br>之后用zipfile模块解开zip包内容，用与第四关相同的方法读取txt文件，得到一个读取comment的提示，最终将压缩包内所有文档的注释按顺序连接起来并输出得到：<br><img src="http://heliar-mk-github.qiniudn.com/level6_output.png" alt="enter image description here"></p>
+<p>将channel替换为hockey后得到提示：</p>
+<blockquote>
+<p>it’s in the air. look at the letters.</p>
+</blockquote>
+<p>说明要输入组成hockey的字母，即oxygen，所以下一关的页面为oxygen.html<br>代码如下：</p>
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="code"><pre><span class="keyword">import</span> zipfile
+<span class="keyword">import</span> urllib.request
+<span class="comment">#适用于python3</span>
+
+num=<span class="number">90052</span>
+zip_file,headers=rullib.request.urlretrieve(<span class="string">'http://www.pythonchallenge.com/pc/def/channel.zip'</span>)
+<span class="keyword">with</span> zipfile.ZipFile(zip_file,<span class="string">'r'</span>) <span class="keyword">as</span> myzip:
+    <span class="keyword">while</span> <span class="keyword">True</span>:
+        <span class="keyword">try</span>:
+            filename=<span class="string">'%s.txt'</span> %num
+            str=myzip.read(filename)
+            print(myzip.getinfo(filename).comment.decode(),end=<span class="string">''</span>)
+            <span class="comment">#zip读取到的数据是二进制格式的，需要做转换</span>
+            num=int(str.split()[-<span class="number">1</span>])
+        <span class="keyword">except</span>:
+            <span class="keyword">break</span>
+</pre></td></tr></table></figure><br>更多解法请参考：<a href="http://www.pythonchallenge.com/pcc/def/oxygen.html" target="_blank" rel="external">level6解法</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Emacs/">Emacs</a>
+  <span></span> <a href="/tags/pychallenge/">pychallenge</a>
   </div>
 
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/编辑器/">编辑器</a>
+  <a class="article-category-link" href="/categories/python/">python</a>
 </div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://heliar-mk.info/2014/07/05/emacs快捷键/" data-title="Emacs基本操作 | heliar&#39;s blog" data-tsina="null" class="share clearfix">
+  <div data-url="http://heliar-mk.info/2014/07/05/2014-7-5-level6/" data-title="python-challenge-level6 | heliar&#39;s blog" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -190,18 +157,18 @@ M-x find-file
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2014/07/06/level7/" title="python-challenge-level7">
+ <a href="/2014/07/05/2014-7-5-ctrlpvim/" title="vim 插件 ctrlp 常用快捷键">
   <strong>PREVIOUS:</strong><br/>
   <span>
-  python-challenge-level7</span>
+  vim 插件 ctrlp 常用快捷键</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2014/07/05/ctrlpvim/"  title="vim 插件 ctrlp 常用快捷键">
+<a href="/2014/07/05/2014-7-5-level5/"  title="python-challenge-level5">
  <strong>NEXT:</strong><br/> 
- <span>vim 插件 ctrlp 常用快捷键
+ <span>python-challenge-level5
 </span>
 </a>
 </div>

@@ -4,19 +4,16 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>python-challenge-level4 | heliar&#39;s blog</title>
+    <title>python-challenge-level7 | heliar&#39;s blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Kai Guan">
     
-    <meta name="description" content="网页名称为 follow the chain查看源代码有一行注释写着：
-
-urllib may help. DON’T TRY ALL NOTHINGS, since it will never end. 400 times is more than enough.
-
-说明：
-
-要跟随一个链
-会用到">
+    <meta name="description" content="第七关的页面上只有一张图片，图片中央有一条明显与其余部分不同的灰阶图案。因无法找到别的提示，故以此为分析入口。
+分析过程采用python的PIL(python image library)库进行处理
+具体请参考:PIL文档
+注:安装pil过程中要装上jepglib库和zlib库。
+读入图片对象后，采">
     
     
     
@@ -66,15 +63,15 @@ urllib may help. DON’T TRY ALL NOTHINGS, since it will never end. 400 times is
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/07/05/level4/" title="python-challenge-level4" itemprop="url">python-challenge-level4</a>
+      <a href="/2014/07/06/2014-7-6-level7/" title="python-challenge-level7" itemprop="url">python-challenge-level7</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://heliar-mk.info" title="Kai Guan">Kai Guan</a>
     </p>
   <p class="article-time">
-    <time datetime="2014-07-05T07:35:07.000Z" itemprop="datePublished">7月 5 2014</time>
-    更新日期:<time datetime="2014-07-05T08:29:38.000Z" itemprop="dateModified">7月 5 2014</time>
+    <time datetime="2014-07-06T12:54:17.000Z" itemprop="datePublished">7月 6 2014</time>
+    更新日期:<time datetime="2014-07-06T13:01:10.000Z" itemprop="dateModified">7月 6 2014</time>
     
   </p>
 </header>
@@ -86,19 +83,17 @@ urllib may help. DON’T TRY ALL NOTHINGS, since it will never end. 400 times is
 		
 		</div>
 		
-		<p>网页名称为 follow the chain<br>查看源代码有一行注释写着：</p>
-<blockquote>
-<p>urllib may help. DON’T TRY ALL NOTHINGS, since it will never end. 400 times is more than enough.</p>
-</blockquote>
-<p>说明：</p>
-<ol>
-<li>要跟随一个链</li>
-<li>会用到urllib</li>
-<li>需要做少于400次的循环查找</li>
-</ol>
-<p>点击图片发现跳转到另一个网页：<a href="http://www.pythonchallenge.com/pc/def/linkedlist.php?nothing=12345" target="_blank" rel="external">http://www.pythonchallenge.com/pc/def/linkedlist.php?nothing=12345</a><br>内容为:<br>“and the next nothing is 44827”</p>
-<p>可见需要将“nothing=”后的数字用页面中的数字进行替换。即12345-&gt;44827.并循环下去</p>
-<p>所以有如下代码：</p>
+		<p>第七关的页面上只有一张图片，图片中央有一条明显与其余部分不同的灰阶图案。因无法找到别的提示，故以此为分析入口。</p>
+<p>分析过程采用python的PIL(python image library)库进行处理</p>
+<p>具体请参考:<a href="http://effbot.org/imagingbook/" target="_blank" rel="external">PIL文档</a></p>
+<p>注:安装pil过程中要装上jepglib库和zlib库。</p>
+<p>读入图片对象后，采用<code>getpixal</code>方法分析第一列像素的rgba值。发现在高度坐标为43-51的部分rgb三个值均相等。接着向右采样了几列，确定图片中的灰度块所处的高度坐标为43-51。</p>
+<p>接下来对所有的宽度坐标进行采样，转换成ASCII码后发现除了第一个字母，后面所有的字母均重复7次。</p>
+<p><code>sssssmmmmmmmaaaaaaarrrrrrrttttttt...</code></p>
+<p>故采用7为步进进行采样，保存所有RGB值相等的点的R值并转换为ASCII码并输出:</p>
+<p><code>smart guy, you made it. the next level is [105, 110, 116, 101, 103, 114, 105, 116, 121]</code></p>
+<p>对后面的列表再做一次转换得到下一关的入口:integrity</p>
+<p>代码如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre>1
 2
 3
@@ -110,80 +105,31 @@ urllib may help. DON’T TRY ALL NOTHINGS, since it will never end. 400 times is
 9
 10
 11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-</pre></td><td class="code"><pre><span class="keyword">import</span> re 
-<span class="keyword">import</span> urllib
-<span class="comment">#python2版本</span>
-
-<span class="function"><span class="keyword">def</span> <span class="title">url_open</span><span class="params">(num)</span>:</span>
-	    url=<span class="string">'http://www.pythonchallenge.com/pc/def/linkedlist.php?nothing=%s'</span>%num[<span class="number">0</span>]
-	    <span class="keyword">return</span>(urllib.urlopen((url)))
-
-<span class="function"><span class="keyword">def</span> <span class="title">got_num</span><span class="params">(html_text)</span>:</span>
-	    pattern=<span class="string">'[0-9]+'</span>
-	    <span class="keyword">return</span> re.findall(pattern, html_text) <span class="comment">#findall 返回的是有所有匹配模式字符串组成的列表</span>
-
-num=[<span class="string">'12345'</span>]
-count=<span class="number">0</span>
-
-<span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">400</span>):
-        <span class="keyword">try</span>:
-                html_text=url_open(num).read()
-                num=got_num(html_text)
-                print(i)
-        <span class="keyword">except</span>:
-                print(html_text)
-                <span class="keyword">break</span>
+</pre></td><td class="code"><pre><span class="keyword">from</span> PIL <span class="keyword">import</span> Image
+ 
+im=Image.open(<span class="string">'oxygen.png'</span>)
+w=im.size[<span class="number">0</span>]
+RGBlist=[]
+h=<span class="number">43</span>
+<span class="keyword">for</span> w <span class="keyword">in</span> range(<span class="number">0</span>,w,<span class="number">7</span>):
+    RGBdata=im.getpixel((w,h))
+    <span class="keyword">if</span>(RGBdata[<span class="number">0</span>]==RGBdata[<span class="number">1</span>] <span class="keyword">and</span> RGBdata[<span class="number">1</span>]==RGBdata[<span class="number">2</span>]):
+        RGBlist.append(RGBdata[<span class="number">0</span>])
+print(<span class="string">""</span>.join((chr(i) <span class="keyword">for</span> i <span class="keyword">in</span> RGBlist)))
 </pre></td></tr></table></figure>
 
-<p>后考虑到如果不用正则表达式匹配，可以取网页内容切分后构成列表的倒数第一项</p>
-<p><figure class="highlight python"><table><tr><td class="gutter"><pre>1
+<p>注：第一次采用剔除重复值进行采样时，错把110，116，114识别为10，16，14.<br>错误部分代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre>1
 2
 3
 4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-</pre></td><td class="code"><pre><span class="comment">#需要修改的部分</span>
-<span class="function"><span class="keyword">def</span> <span class="title">url_open</span><span class="params">(num)</span>:</span>
-	    url=<span class="string">'http://www.pythonchallenge.com/pc/def/linkedlist.php?nothing=%s'</span>%num
-	    <span class="keyword">return</span>(urllib.urlopen((url)))
-num=<span class="string">'12345'</span>
-<span class="keyword">if</span> num.isdigit():
-    <span class="keyword">try</span>:
-            html_text=url_open(num).read()
-            num=html_text.split()[-<span class="number">1</span>]   <span class="comment">#此处改变算法</span>
-    <span class="keyword">except</span>:
-    ...
-<span class="keyword">else</span>:
-    ...
-</pre></td></tr></table></figure><br>循环到85次时会到：<a href="http://www.pythonchallenge.com/pc/def/linkedlist.php?nothing=16044" target="_blank" rel="external">http://www.pythonchallenge.com/pc/def/linkedlist.php?nothing=16044</a><br>这个页面内容是:</p>
-<blockquote>
-<p>Yes. Divide by two and keep going.</p>
-</blockquote>
-<p>将16044/2=8022替换后继续<br>循环164次后得到结果</p>
-<blockquote>
-<p>peak.htm</p>
-</blockquote>
-<p>注：用原算法在第二次循环过程中会出现错误，按提示重新填入num值即可继续。</p>
-<p>更多解法参考：<a href="http://www.pythonchallenge.com/pcc/def/peak.html" target="_blank" rel="external">pychallenge_level4 解法</a></p>
+</pre></td><td class="code"><pre><span class="keyword">if</span> RGBlist==[]:
+    RGBlist.append(RGBdata[<span class="number">0</span>])
+<span class="keyword">elif</span>(RGBlist[-<span class="number">1</span>]!=RGBdata[<span class="number">0</span>]):
+    RGBlist.append(RGBdata[<span class="number">0</span>])
+</pre></td></tr></table></figure>
+
+<p>更多答案请参考：<a href="http://www.pythonchallenge.com/pcc/def/integrity.html" target="_blank" rel="external">pychallenge-level7 解法</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -203,7 +149,7 @@ num=<span class="string">'12345'</span>
 
 <div class="article-share" id="share">
 
-  <div data-url="http://heliar-mk.info/2014/07/05/level4/" data-title="python-challenge-level4 | heliar&#39;s blog" data-tsina="null" class="share clearfix">
+  <div data-url="http://heliar-mk.info/2014/07/06/2014-7-6-level7/" data-title="python-challenge-level7 | heliar&#39;s blog" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -213,18 +159,18 @@ num=<span class="string">'12345'</span>
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2014/07/05/level5/" title="python-challenge-level5">
+ <a href="/2014/07/07/2014-7-7-virtualization/" title="虚拟化--Windows xp mode,Med-v,app-v等的区别">
   <strong>PREVIOUS:</strong><br/>
   <span>
-  python-challenge-level5</span>
+  虚拟化--Windows xp mode,Med-v,app-v等的区别</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2014/07/05/level3/"  title="python-challenge-level3">
+<a href="/2014/07/05/2014-7-5-emacs快捷键/"  title="Emacs基本操作">
  <strong>NEXT:</strong><br/> 
- <span>python-challenge-level3
+ <span>Emacs基本操作
 </span>
 </a>
 </div>

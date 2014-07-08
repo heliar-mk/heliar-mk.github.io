@@ -9,8 +9,7 @@
     
     <meta name="author" content="Kai Guan">
     
-    <meta name="description" content="Windows xp mode,Med-v,app-v等区别
-“XP模式”的基本实现方式就是通过在后台运行一个虚拟的WindowsXP，把软件通过虚拟化的方式，在Windows7中展现出来。这种虚拟化技术目前非常火热，各大厂商也都已经拥有相对应的虚拟化产品，而微软在这个虚拟化领域也已经推出了非常全面">
+    <meta name="description" content="“XP模式”的基本实现方式就是通过在后台运行一个虚拟的WindowsXP，把软件通过虚拟化的方式，在Windows7中展现出来。这种虚拟化技术目前非常火热，各大厂商也都已经拥有相对应的虚拟化产品，而微软在这个虚拟化领域也已经推出了非常全面的产品体系，这当然不仅仅是我们所说的XP模式，还包括用户状态虚">
     
     
     
@@ -60,15 +59,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/07/07/virtualization/" title="虚拟化--Windows xp mode,Med-v,app-v等的区别" itemprop="url">虚拟化--Windows xp mode,Med-v,app-v等的区别</a>
+      <a href="/2014/07/07/2014-7-7-virtualization/" title="虚拟化--Windows xp mode,Med-v,app-v等的区别" itemprop="url">虚拟化--Windows xp mode,Med-v,app-v等的区别</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://heliar-mk.info" title="Kai Guan">Kai Guan</a>
     </p>
   <p class="article-time">
-    <time datetime="2014-07-06T16:00:00.000Z" itemprop="datePublished">7月 7 2014</time>
-    更新日期:<time datetime="2014-07-07T02:15:21.000Z" itemprop="dateModified">7月 7 2014</time>
+    <time datetime="2014-07-07T02:08:17.000Z" itemprop="datePublished">7月 7 2014</time>
+    更新日期:<time datetime="2014-07-08T12:35:34.000Z" itemprop="dateModified">7月 8 2014</time>
     
   </p>
 </header>
@@ -77,11 +76,10 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Windows_xp_mode,Med-v,app-v等区别"><span class="toc-number">1.</span> <span class="toc-text">Windows xp mode,Med-v,app-v等区别</span></a></li><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#用户状态虚拟化"><span class="toc-number">1.1.</span> <span class="toc-text">用户状态虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用程序虚拟化"><span class="toc-number">1.2.</span> <span class="toc-text">应用程序虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#表示层虚拟化"><span class="toc-number">1.3.</span> <span class="toc-text">表示层虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务器端虚拟化"><span class="toc-number">1.4.</span> <span class="toc-text">服务器端虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#桌面虚拟化"><span class="toc-number">1.5.</span> <span class="toc-text">桌面虚拟化</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#用户状态虚拟化"><span class="toc-number">1.</span> <span class="toc-text">用户状态虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用程序虚拟化"><span class="toc-number">2.</span> <span class="toc-text">应用程序虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#表示层虚拟化"><span class="toc-number">3.</span> <span class="toc-text">表示层虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务器端虚拟化"><span class="toc-number">4.</span> <span class="toc-text">服务器端虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#桌面虚拟化"><span class="toc-number">5.</span> <span class="toc-text">桌面虚拟化</span></a></li></ol>
 		</div>
 		
-		<h1 id="Windows_xp_mode,Med-v,app-v等区别">Windows xp mode,Med-v,app-v等区别</h1>
-<p>“XP模式”的基本实现方式就是通过在后台运行一个虚拟的WindowsXP，把软件通过虚拟化的方式，在Windows7中展现出来。这种虚拟化技术目前非常火热，各大厂商也都已经拥有相对应的虚拟化产品，而微软在这个虚拟化领域也已经推出了非常全面的产品体系，这当然不仅仅是我们所说的XP模式，还包括用<br>户状态虚拟化、应用程序虚拟化、桌面虚拟化、展现层虚拟化、服务器虚拟化</p>
+		<p>“XP模式”的基本实现方式就是通过在后台运行一个虚拟的WindowsXP，把软件通过虚拟化的方式，在Windows7中展现出来。这种虚拟化技术目前非常火热，各大厂商也都已经拥有相对应的虚拟化产品，而微软在这个虚拟化领域也已经推出了非常全面的产品体系，这当然不仅仅是我们所说的XP模式，还包括用<br>户状态虚拟化、应用程序虚拟化、桌面虚拟化、展现层虚拟化、服务器虚拟化</p>
 <h2 id="用户状态虚拟化">用户状态虚拟化</h2>
 <p>包含的微软产品为Windows7：<em>文件夹重定向、脱机文件和漫游用户配置文件</em>（文件夹重定向和脱机文件是支持IT人员将用户数据和设置重定向到中央网络位置的Windows特性）；</p>
 <h2 id="应用程序虚拟化">应用程序虚拟化</h2>
@@ -120,7 +118,7 @@
 
 <div class="article-share" id="share">
 
-  <div data-url="http://heliar-mk.info/2014/07/07/virtualization/" data-title="虚拟化--Windows xp mode,Med-v,app-v等的区别 | heliar&#39;s blog" data-tsina="null" class="share clearfix">
+  <div data-url="http://heliar-mk.info/2014/07/07/2014-7-7-virtualization/" data-title="虚拟化--Windows xp mode,Med-v,app-v等的区别 | heliar&#39;s blog" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -131,7 +129,7 @@
  
 
 <div class="next">
-<a href="/2014/07/06/level7/"  title="python-challenge-level7">
+<a href="/2014/07/06/2014-7-6-level7/"  title="python-challenge-level7">
  <strong>NEXT:</strong><br/> 
  <span>python-challenge-level7
 </span>
@@ -150,7 +148,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Windows_xp_mode,Med-v,app-v等区别"><span class="toc-number">1.</span> <span class="toc-text">Windows xp mode,Med-v,app-v等区别</span></a></li><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#用户状态虚拟化"><span class="toc-number">1.1.</span> <span class="toc-text">用户状态虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用程序虚拟化"><span class="toc-number">1.2.</span> <span class="toc-text">应用程序虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#表示层虚拟化"><span class="toc-number">1.3.</span> <span class="toc-text">表示层虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务器端虚拟化"><span class="toc-number">1.4.</span> <span class="toc-text">服务器端虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#桌面虚拟化"><span class="toc-number">1.5.</span> <span class="toc-text">桌面虚拟化</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#用户状态虚拟化"><span class="toc-number">1.</span> <span class="toc-text">用户状态虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用程序虚拟化"><span class="toc-number">2.</span> <span class="toc-text">应用程序虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#表示层虚拟化"><span class="toc-number">3.</span> <span class="toc-text">表示层虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务器端虚拟化"><span class="toc-number">4.</span> <span class="toc-text">服务器端虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#桌面虚拟化"><span class="toc-number">5.</span> <span class="toc-text">桌面虚拟化</span></a></li></ol>
   </div>
 
 <div id="asidepart">
