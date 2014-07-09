@@ -4,24 +4,12 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>python-challenge-level5 | heliar&#39;s blog</title>
+    <title>mysql外键建立失败原因 | heliar&#39;s blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Kai Guan">
     
-    <meta name="description" content="网页上只有一张图和一句提示
-
-pronounce it
-
-查看网页源码有一句注释
-
-peak hell sounds familiar ?
-
-还有一段这样的代码
-
-peakhell src=”banner.p”
-
-将banner.p下载回来发现是一段无规律的字符考虑到“peakhell”连读有点类似">
+    <meta name="description" content="在MySQL数据库创建外键时，经常会发生一些错误，这是一件很令人头疼的事。一个典型的错误就是：Can’t create table…的错误。在很多实例中，这种错误的发生都是因为mysql一直以来都不能很好的支持的关系的问题， 更不幸的是它也并没有指明到底是哪一个问题会导致上面那种错误，下面我把导致这">
     
     
     
@@ -71,15 +59,15 @@ peakhell src=”banner.p”
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/07/05/2014-7-5-level5/" title="python-challenge-level5" itemprop="url">python-challenge-level5</a>
+      <a href="/2014/07/09/mysql外键建立失败原因/" title="mysql外键建立失败原因" itemprop="url">mysql外键建立失败原因</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://heliar-mk.info" title="Kai Guan">Kai Guan</a>
     </p>
   <p class="article-time">
-    <time datetime="2014-07-05T08:13:41.000Z" itemprop="datePublished">7月 5 2014</time>
-    更新日期:<time datetime="2014-07-05T08:38:16.000Z" itemprop="dateModified">7月 5 2014</time>
+    <time datetime="2014-07-09T14:53:12.000Z" itemprop="datePublished">7月 9 2014</time>
+    更新日期:<time datetime="2014-07-09T14:53:52.000Z" itemprop="dateModified">7月 9 2014</time>
     
   </p>
 </header>
@@ -91,89 +79,47 @@ peakhell src=”banner.p”
 		
 		</div>
 		
-		<p>网页上只有一张图和一句提示</p>
-<blockquote>
-<p>pronounce it</p>
-</blockquote>
-<p>查看网页源码有一句注释</p>
-<blockquote>
-<p>peak hell sounds familiar ?</p>
-</blockquote>
-<p>还有一段这样的代码</p>
-<blockquote>
-<p>peakhell src=”banner.p”</p>
-</blockquote>
-<p>将banner.p下载回来发现是一段无规律的字符<br>考虑到“peakhell”连读有点类似pickle，故考虑用pickle模块来对banner.p做解码<br>有如下代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre>1
-2
-</pre></td><td class="code"><pre>pkfile = open(file, <span class="string">'rb'</span>)
-source = pickle.load(pkfile)
-</pre></td></tr></table></figure><br>其中file用’banner.p’传入<br>返回的source是一个pickle对象。<br>发现source还原的对象是一个嵌套的列表<br><figure class="highlight"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-</pre></td><td class="code"><pre>[[(' ', <span class="number">95</span>)]
-[(' ', <span class="number">14</span>), ('#', <span class="number">5</span>), (' ', <span class="number">70</span>), ('#', <span class="number">5</span>), (' ', <span class="number">1</span>)]
-[(' ', <span class="number">15</span>), ('#', <span class="number">4</span>), (' ', <span class="number">71</span>), ('#', <span class="number">4</span>), (' ', <span class="number">1</span>)]
-[(' ', <span class="number">15</span>), ('#', <span class="number">4</span>), (' ', <span class="number">71</span>), ('#', <span class="number">4</span>), (' ', <span class="number">1</span>)]
-[(' ', <span class="number">15</span>), ('#', <span class="number">4</span>), (' ', <span class="number">71</span>), ('#', <span class="number">4</span>), (' ', <span class="number">1</span>)]
-[(' ', <span class="number">15</span>), ('#', <span class="number">4</span>), (' ', <span class="number">71</span>), ('#', <span class="number">4</span>), (' ', <span class="number">1</span>)]
-[(' ', <span class="number">15</span>), ('#', <span class="number">4</span>), (' ', <span class="number">71</span>), ('#', <span class="number">4</span>), (' ', <span class="number">1</span>)]
-[(' ', <span class="number">15</span>), ('#', <span class="number">4</span>), (' ', <span class="number">71</span>), ('#', <span class="number">4</span>), (' ', <span class="number">1</span>)]
-[(' ', <span class="number">15</span>), ('#', <span class="number">4</span>), (' ', <span class="number">71</span>), ('#', <span class="number">4</span>), (' ', <span class="number">1</span>)]
-...
-... #因为过于长中间部分省略了
-...
-[(' ', <span class="number">95</span>)]]
-</pre></td></tr></table></figure><br>最内层列表中有一个或者多个元祖，元祖的第一个元素是‘空格’或者是‘#’，第二个元素均为数字，且从最外层列表的元素来看，数字有一定重现性和对称性，猜测可能是将空格和#按照后面紧跟的数字作为数量打印出来。<br>然后有下面的代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-</pre></td><td class="code"><pre><span class="keyword">for</span> i <span class="keyword">in</span> source:
-        <span class="keyword">for</span> j <span class="keyword">in</span> i:
-                print(j[<span class="number">0</span>]*j[<span class="number">1</span>],end=<span class="string">''</span>)
-        print(<span class="string">'\n'</span>,end=<span class="string">''</span>) <span class="comment">#这个写法比较挫。。。</span>
-        
-<span class="comment">#上面的方法可以改成</span>
-<span class="keyword">for</span> i <span class="keyword">in</span> source:
-        print(<span class="string">''</span>.join(ch*count <span class="keyword">for</span> ch,count <span class="keyword">in</span> i)
-</pre></td></tr></table></figure>
-
-<p>最终输出的结果是<br><img src="http://heliar-mk-github.qiniudn.com/level5-output.png" alt="enter image description here"><br>即”channel’<br>故下一关的地址是channel.htm</p>
-<p>更多解法请见：<a href="http://www.pythonchallenge.com/pcc/def/channel.html" target="_blank" rel="external">pychallenge-level5</a></p>
+		<p>在MySQL数据库创建外键时，经常会发生一些错误，这是一件很令人头疼的事。<br>一个典型的错误就是：Can’t create table…的错误。<br>在很多实例中，这种错误的发生都是因为mysql一直以来都不能很好的支持的关系的问题， 更不幸的是它也并没有指明到底是哪一个问题会导致上面那种错误，下面我把导致这个可怕的150错误的常见原因列出来了，并且我以可能性的大小作了排序，已知的原因： </p>
+<ol>
+<li><p>两个字段的类型或者大小不严格匹配，例如，如果一个是INT(10), 那么外键也必须设置成INT(10), 而不是 INT(11) 也不能是TINYINT. 你得使用SHOW命令来查看字段的大小，因为一些查询浏览器有时候把int(10) 和int(11) 都显示为integer。另外，你还必须确定两个字段是否一个为SIGNED,而另一个又是UNSIGNED, 这两字段必须严格地一致匹配，更多关于signed和unsigned的信息，请参阅：<a href="http://www.verysimple.com/blog/?p=57" target="_blank" rel="external">http://www.verysimple.com/blog/?p=57</a> 。</p>
+</li>
+<li><p>你试图引用的其中一个外键没有建立起索引，或者不是一个primary key , 如果其中一个不是primary key的，你必须为它创建一个索引。 </p>
+</li>
+<li><p>外键的名字是一个已经存在的一个键值了，这个时候，你应该检查你的数据库以确保外健名字是唯一的，或者你在键名后面加上几个随机的字符以测试是否是这个原因。 </p>
+</li>
+<li><p>其中一个或者两个表是MyISAM引擎的表，若想要使用外键约束，必须是InnoDB引擎，（实际上，如果两个表都是MyISAM 引擎的，这个错误根本不会发生，但也不会产生外键），你可以通过查询浏览器来设置表的引擎类型</p>
+</li>
+<li><p>你可能设置了ON DELETE SET NULL, 但是相关的键的字段又设置成了NOTS NULL 值。你可能通过修改cascade 的属性值或者把字段属性设置成allow null来搞定这个bug. </p>
+</li>
+<li><p>请确定你的Charset 和 Collate 选项在表级和字段级上的一致。</p>
+</li>
+<li><p>你可能设置为外键设置了一个默认值，如default=0。</p>
+</li>
+<li><p>在这个关系里面，其中的一个字段是一个混合键值中的一个，它没有自己独立的索引，这时，你必须为它创建一个独立的索引。 </p>
+</li>
+<li><p>ALTER 声明中有语法错误。</p>
+</li>
+</ol>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/pychallenge/">pychallenge</a>
+  <span></span> <a href="/tags/Mysql/">Mysql</a>
   </div>
 
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/python/">python</a>
+  <a class="article-category-link" href="/categories/Database/">Database</a>
 </div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://heliar-mk.info/2014/07/05/2014-7-5-level5/" data-title="python-challenge-level5 | heliar&#39;s blog" data-tsina="null" class="share clearfix">
+  <div data-url="http://heliar-mk.info/2014/07/09/mysql外键建立失败原因/" data-title="mysql外键建立失败原因 | heliar&#39;s blog" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -182,19 +128,11 @@ source = pickle.load(pkfile)
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2014/07/05/2014-7-5-level6/" title="python-challenge-level6">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  python-challenge-level6</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2014/07/05/2014-7-5-level4/"  title="python-challenge-level4">
+<a href="/2014/07/07/2014-7-7-virtualization/"  title="虚拟化--Windows xp mode,Med-v,app-v等的区别">
  <strong>NEXT:</strong><br/> 
- <span>python-challenge-level4
+ <span>虚拟化--Windows xp mode,Med-v,app-v等的区别
 </span>
 </a>
 </div>
