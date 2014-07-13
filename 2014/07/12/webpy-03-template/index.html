@@ -70,7 +70,7 @@ web.py的模板语言被称为Templetor该语言重用了python的语法，降�
     </p>
   <p class="article-time">
     <time datetime="2014-07-12T14:46:13.000Z" itemprop="datePublished">7月 12 2014</time>
-    更新日期:<time datetime="2014-07-13T12:48:23.000Z" itemprop="dateModified">7月 13 2014</time>
+    更新日期:<time datetime="2014-07-13T12:49:52.000Z" itemprop="dateModified">7月 13 2014</time>
     
   </p>
 </header>
@@ -426,7 +426,7 @@ u'text/html/
 <h1 id="嵌入部件&amp;全局变量">嵌入部件&amp;全局变量</h1>
 <p>和python的函数一样，模板可以访问嵌入部件（连同其参数和局部变量）。一些常见的内嵌函数，如：range，min，max等，和布尔值：True，False 一到对所有模板都是可用的。<br>除了内嵌部分，某些应用特别的全局变量也能被指定被所有模板访问。</p>
 <p>全局变量可以被指定为web.template.render的参数</p>
-<p><figure class="highlight"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -436,14 +436,18 @@ import markdown
 
 <span class="built_in">globals</span> = {<span class="string">'markdown'</span>: markdown.markdown}
 render = web.template.render(<span class="string">'templates'</span>, <span class="built_in">globals</span>=<span class="built_in">globals</span>)
-</pre></td></tr></table></figure><br>也可以使模板无法访问内嵌部件</p>
-<h2 id="20"><figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td></tr></table></figure>
+
+<p>也可以使模板无法访问内嵌部件</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
 </pre></td><td class="code"><pre>#<span class="keyword">disable</span> all builtins
 
 <span class="keyword">render</span> = web.template.<span class="keyword">render</span>(<span class="string">'tempalte'</span>, builtins={})
-</pre></td></tr></table></figure></h2>
+</pre></td></tr></table></figure>
+
+<hr>
 <h1 id="安全性">安全性</h1>
 <p>设计Templetor的一个目的就是为了使不受信的用户也可以编辑模板。<br>为了让模板安全的执行，不允许下面这些写法出现在模板中</p>
 <ul>
