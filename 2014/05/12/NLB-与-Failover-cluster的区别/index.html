@@ -4,16 +4,16 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>python-challenge-level7 | heliar&#39;s blog</title>
+    <title>NLB 与 Failover cluster的区别 | heliar&#39;s blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Kai Guan">
     
-    <meta name="description" content="第七关的页面上只有一张图片，图片中央有一条明显与其余部分不同的灰阶图案。因无法找到别的提示，故以此为分析入口。
-分析过程采用python的PIL(python image library)库进行处理
-具体请参考:PIL文档
-注:安装pil过程中要装上jepglib库和zlib库。
-读入图片对象后，采">
+    <meta name="description" content="NLB
+
+是给前台服务提供可靠性和可伸缩性
+
+前台服务包括ISA、WEB、VPN等等。比如说你给WEB服务器做了NLB，是两个节点的。那么当有一台WEB宕机以后，用户不会感觉出来，因为它会从另外一个节点上访问。可伸缩性指的就是你如果有10000个用户来访问你的WEB服务器，用了NLB以后它就会通过N">
     
     
     
@@ -63,15 +63,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/07/06/2014-7-6-level7/" title="python-challenge-level7" itemprop="url">python-challenge-level7</a>
+      <a href="/2014/05/12/NLB-与-Failover-cluster的区别/" title="NLB 与 Failover cluster的区别" itemprop="url">NLB 与 Failover cluster的区别</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://heliar-mk.info" title="Kai Guan">Kai Guan</a>
     </p>
   <p class="article-time">
-    <time datetime="2014-07-06T12:54:17.000Z" itemprop="datePublished">7月 6 2014</time>
-    更新日期:<time datetime="2014-07-06T13:01:10.000Z" itemprop="dateModified">7月 6 2014</time>
+    <time datetime="2014-05-12T13:39:58.000Z" itemprop="datePublished">5月 12 2014</time>
+    更新日期:<time datetime="2014-07-13T13:45:21.000Z" itemprop="dateModified">7月 13 2014</time>
     
   </p>
 </header>
@@ -83,73 +83,36 @@
 		
 		</div>
 		
-		<p>第七关的页面上只有一张图片，图片中央有一条明显与其余部分不同的灰阶图案。因无法找到别的提示，故以此为分析入口。</p>
-<p>分析过程采用python的PIL(python image library)库进行处理</p>
-<p>具体请参考:<a href="http://effbot.org/imagingbook/" target="_blank" rel="external">PIL文档</a></p>
-<p>注:安装pil过程中要装上jepglib库和zlib库。</p>
-<p>读入图片对象后，采用<code>getpixal</code>方法分析第一列像素的rgba值。发现在高度坐标为43-51的部分rgb三个值均相等。接着向右采样了几列，确定图片中的灰度块所处的高度坐标为43-51。</p>
-<p>接下来对所有的宽度坐标进行采样，转换成ASCII码后发现除了第一个字母，后面所有的字母均重复7次。</p>
-<p><code>sssssmmmmmmmaaaaaaarrrrrrrttttttt...</code></p>
-<p>故采用7为步进进行采样，保存所有RGB值相等的点的R值并转换为ASCII码并输出:</p>
-<p><code>smart guy, you made it. the next level is [105, 110, 116, 101, 103, 114, 105, 116, 121]</code></p>
-<p>对后面的列表再做一次转换得到下一关的入口:integrity</p>
-<p>代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-</pre></td><td class="code"><pre><span class="keyword">from</span> PIL <span class="keyword">import</span> Image
- 
-im=Image.open(<span class="string">'oxygen.png'</span>)
-w=im.size[<span class="number">0</span>]
-RGBlist=[]
-h=<span class="number">43</span>
-<span class="keyword">for</span> w <span class="keyword">in</span> range(<span class="number">0</span>,w,<span class="number">7</span>):
-    RGBdata=im.getpixel((w,h))
-    <span class="keyword">if</span>(RGBdata[<span class="number">0</span>]==RGBdata[<span class="number">1</span>] <span class="keyword">and</span> RGBdata[<span class="number">1</span>]==RGBdata[<span class="number">2</span>]):
-        RGBlist.append(RGBdata[<span class="number">0</span>])
-print(<span class="string">""</span>.join((chr(i) <span class="keyword">for</span> i <span class="keyword">in</span> RGBlist)))
-</pre></td></tr></table></figure>
-
-<p>注：第一次采用剔除重复值进行采样时，错把110，116，114识别为10，16，14.<br>错误部分代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-</pre></td><td class="code"><pre><span class="keyword">if</span> RGBlist==[]:
-    RGBlist.append(RGBdata[<span class="number">0</span>])
-<span class="keyword">elif</span>(RGBlist[-<span class="number">1</span>]!=RGBdata[<span class="number">0</span>]):
-    RGBlist.append(RGBdata[<span class="number">0</span>])
-</pre></td></tr></table></figure>
-
-<p>更多答案请参考：<a href="http://www.pythonchallenge.com/pcc/def/integrity.html" target="_blank" rel="external">pychallenge-level7 解法</a></p>
+		<p><strong>NLB</strong></p>
+<ul>
+<li>是给前台服务提供<strong>可靠性</strong>和<strong>可伸缩性</strong></li>
+</ul>
+<p>前台服务包括ISA、WEB、VPN等等。比如说你给WEB服务器做了NLB，是两个节点的。那么当有一台WEB宕机以后，用户不会感觉出来，因为它会从另外一个节点上访问。可伸缩性指的就是你如果有10000个用户来访问你的WEB服务器，用了NLB以后它就会通过NLB机制根据你的负载给你分担到不用的节点上去。</p>
+<p><strong>Failover cluster</strong></p>
+<ul>
+<li>实现的是故障的<strong>资源转移</strong>，针对的是<em>后台服务</em>。</li>
+</ul>
+<p>比如说SQL、EXCHANGE、DHCP等等，当一个节点宕机，会无缝的转移到另外一个节点上去，从而不影响<br>上产上的使用</p>
+<p>所以说：</p>
+<ul>
+<li>NLB主要体现在网络访问时的流量分担</li>
+<li>failover cluster主要体现的是网络故障时的无缝转移</li>
+</ul>
   
 	</div>
 		<footer class="article-footer clearfix">
 
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/pychallenge/">pychallenge</a>
-  </div>
-
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/python/">python</a>
+  <a class="article-category-link" href="/categories/运维/">运维</a>
 </div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://heliar-mk.info/2014/07/06/2014-7-6-level7/" data-title="python-challenge-level7 | heliar&#39;s blog" data-tsina="null" class="share clearfix">
+  <div data-url="http://heliar-mk.info/2014/05/12/NLB-与-Failover-cluster的区别/" data-title="NLB 与 Failover cluster的区别 | heliar&#39;s blog" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -159,18 +122,18 @@ print(<span class="string">""</span>.join((chr(i) <span class="keyword">for</spa
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2014/07/09/mysql外键建立失败原因/" title="mysql外键建立失败原因">
+ <a href="/2014/05/22/2014-7-7-virtualization/" title="虚拟化--Windows xp mode,Med-v,app-v等的区别">
   <strong>PREVIOUS:</strong><br/>
   <span>
-  mysql外键建立失败原因</span>
+  虚拟化--Windows xp mode,Med-v,app-v等的区别</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2014/07/05/2014-7-5-emacs快捷键/"  title="Emacs基本操作">
+<a href="/2013/07/31/linux多命令协作/"  title="linux-多命令协作">
  <strong>NEXT:</strong><br/> 
- <span>Emacs基本操作
+ <span>linux-多命令协作
 </span>
 </a>
 </div>

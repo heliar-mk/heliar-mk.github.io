@@ -4,16 +4,12 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>python-challenge-level7 | heliar&#39;s blog</title>
+    <title>虚拟化--Windows xp mode,Med-v,app-v等的区别 | heliar&#39;s blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Kai Guan">
     
-    <meta name="description" content="第七关的页面上只有一张图片，图片中央有一条明显与其余部分不同的灰阶图案。因无法找到别的提示，故以此为分析入口。
-分析过程采用python的PIL(python image library)库进行处理
-具体请参考:PIL文档
-注:安装pil过程中要装上jepglib库和zlib库。
-读入图片对象后，采">
+    <meta name="description" content="“XP模式”的基本实现方式就是通过在后台运行一个虚拟的WindowsXP，把软件通过虚拟化的方式，在Windows7中展现出来。这种虚拟化技术目前非常火热，各大厂商也都已经拥有相对应的虚拟化产品，而微软在这个虚拟化领域也已经推出了非常全面的产品体系，这当然不仅仅是我们所说的XP模式，还包括用户状态虚">
     
     
     
@@ -63,15 +59,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/07/06/2014-7-6-level7/" title="python-challenge-level7" itemprop="url">python-challenge-level7</a>
+      <a href="/2014/05/22/2014-7-7-virtualization/" title="虚拟化--Windows xp mode,Med-v,app-v等的区别" itemprop="url">虚拟化--Windows xp mode,Med-v,app-v等的区别</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://heliar-mk.info" title="Kai Guan">Kai Guan</a>
     </p>
   <p class="article-time">
-    <time datetime="2014-07-06T12:54:17.000Z" itemprop="datePublished">7月 6 2014</time>
-    更新日期:<time datetime="2014-07-06T13:01:10.000Z" itemprop="dateModified">7月 6 2014</time>
+    <time datetime="2014-05-22T02:08:17.000Z" itemprop="datePublished">5月 22 2014</time>
+    更新日期:<time datetime="2014-07-13T13:46:12.000Z" itemprop="dateModified">7月 13 2014</time>
     
   </p>
 </header>
@@ -80,76 +76,44 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#用户状态虚拟化"><span class="toc-number">1.</span> <span class="toc-text">用户状态虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用程序虚拟化"><span class="toc-number">2.</span> <span class="toc-text">应用程序虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#表示层虚拟化"><span class="toc-number">3.</span> <span class="toc-text">表示层虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务器端虚拟化"><span class="toc-number">4.</span> <span class="toc-text">服务器端虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#桌面虚拟化"><span class="toc-number">5.</span> <span class="toc-text">桌面虚拟化</span></a></li></ol>
 		</div>
 		
-		<p>第七关的页面上只有一张图片，图片中央有一条明显与其余部分不同的灰阶图案。因无法找到别的提示，故以此为分析入口。</p>
-<p>分析过程采用python的PIL(python image library)库进行处理</p>
-<p>具体请参考:<a href="http://effbot.org/imagingbook/" target="_blank" rel="external">PIL文档</a></p>
-<p>注:安装pil过程中要装上jepglib库和zlib库。</p>
-<p>读入图片对象后，采用<code>getpixal</code>方法分析第一列像素的rgba值。发现在高度坐标为43-51的部分rgb三个值均相等。接着向右采样了几列，确定图片中的灰度块所处的高度坐标为43-51。</p>
-<p>接下来对所有的宽度坐标进行采样，转换成ASCII码后发现除了第一个字母，后面所有的字母均重复7次。</p>
-<p><code>sssssmmmmmmmaaaaaaarrrrrrrttttttt...</code></p>
-<p>故采用7为步进进行采样，保存所有RGB值相等的点的R值并转换为ASCII码并输出:</p>
-<p><code>smart guy, you made it. the next level is [105, 110, 116, 101, 103, 114, 105, 116, 121]</code></p>
-<p>对后面的列表再做一次转换得到下一关的入口:integrity</p>
-<p>代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-</pre></td><td class="code"><pre><span class="keyword">from</span> PIL <span class="keyword">import</span> Image
- 
-im=Image.open(<span class="string">'oxygen.png'</span>)
-w=im.size[<span class="number">0</span>]
-RGBlist=[]
-h=<span class="number">43</span>
-<span class="keyword">for</span> w <span class="keyword">in</span> range(<span class="number">0</span>,w,<span class="number">7</span>):
-    RGBdata=im.getpixel((w,h))
-    <span class="keyword">if</span>(RGBdata[<span class="number">0</span>]==RGBdata[<span class="number">1</span>] <span class="keyword">and</span> RGBdata[<span class="number">1</span>]==RGBdata[<span class="number">2</span>]):
-        RGBlist.append(RGBdata[<span class="number">0</span>])
-print(<span class="string">""</span>.join((chr(i) <span class="keyword">for</span> i <span class="keyword">in</span> RGBlist)))
-</pre></td></tr></table></figure>
-
-<p>注：第一次采用剔除重复值进行采样时，错把110，116，114识别为10，16，14.<br>错误部分代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-</pre></td><td class="code"><pre><span class="keyword">if</span> RGBlist==[]:
-    RGBlist.append(RGBdata[<span class="number">0</span>])
-<span class="keyword">elif</span>(RGBlist[-<span class="number">1</span>]!=RGBdata[<span class="number">0</span>]):
-    RGBlist.append(RGBdata[<span class="number">0</span>])
-</pre></td></tr></table></figure>
-
-<p>更多答案请参考：<a href="http://www.pythonchallenge.com/pcc/def/integrity.html" target="_blank" rel="external">pychallenge-level7 解法</a></p>
+		<p>“XP模式”的基本实现方式就是通过在后台运行一个虚拟的WindowsXP，把软件通过虚拟化的方式，在Windows7中展现出来。这种虚拟化技术目前非常火热，各大厂商也都已经拥有相对应的虚拟化产品，而微软在这个虚拟化领域也已经推出了非常全面的产品体系，这当然不仅仅是我们所说的XP模式，还包括用<br>户状态虚拟化、应用程序虚拟化、桌面虚拟化、展现层虚拟化、服务器虚拟化</p>
+<h2 id="用户状态虚拟化">用户状态虚拟化</h2>
+<p>包含的微软产品为Windows7：<em>文件夹重定向、脱机文件和漫游用户配置文件</em>（文件夹重定向和脱机文件是支持IT人员将用户数据和设置重定向到中央网络位置的Windows特性）；</p>
+<h2 id="应用程序虚拟化">应用程序虚拟化</h2>
+<p>包含的微软产品为MicrosoftApplicationVirtualization，也就是传说中的App-V，<strong>所谓应用程序虚拟化就是将应用程序进行虚拟化打包操作</strong>，让虚拟的应用程序独立于操作系统层面而独立存在，<strong>应用程序虚拟化消除了应用程序之间的冲突，使两个互相不兼容的程序能够同时并存</strong>。这种基础结构使应用程序能够随需应变，并且它们只能在经过许可的机器上运行（无论是物理机还是虚拟机）。应用程序虚拟化需要依托于网络，但是并不局限于网络，在离线模式下用户仍可以使用虚拟化应用程序。</p>
+<h2 id="表示层虚拟化">表示层虚拟化</h2>
+<p>包含的微软产品为WindowsServerTerminalServices，所谓的TerminalServices虚拟化就是整个桌面或具体应用程序的表示层（简单理解为用户界面），使组织能够将应用程序和数据整合到数据中心中，同时提供对本地和远程用户的广泛访问。</p>
+<h2 id="服务器端虚拟化">服务器端虚拟化</h2>
+<p>包含的微软产品包括WindowsServer2008R2中的Hyper-V以及VirtualServer2008R2，Hyper-V是Microsoft提供的下一代基于管理程序的虚拟化技术。</p>
+<h2 id="桌面虚拟化">桌面虚拟化</h2>
+<p>有2种代表性产品，一个为<strong>VirtualPC</strong>，另一个为<strong>MicrosoftEnterpriseDesktopVirtualization</strong>。今天所介绍的XP模式在使用过程中会调用VirtualPC，所以WindowsXPMode就包含在桌面虚拟化层中。那么同样都是在桌面虚拟化层中，XPMode与MicrosoftEnterpriseDesktopVirtualization（以后简称MED-V）又有什么区别与联系呢？首先让我们来了解一下什么是MED-V。MED-V是MDOP组件之一，MDOP（MicrosoftDesktopOptimizationPack）是微软出品的一套企业级桌面优化管理的解决方案，包含六个组件：</p>
+<ol>
+<li>ApplicationVirtualization（应用程序虚拟化）</li>
+<li>MicrosoftEnterpriseDesktopVirtualization（微软企业桌面虚拟化）</li>
+<li>SystemCenterDesktopErrorMonitoring（桌面错误监控系统）</li>
+<li>AssetInventoryService（资产管理服务）</li>
+<li>AdvancedGroupPolicyManagement（高级组策略管理工具）</li>
+<li>DiagnosticsandRecoveryToolset（桌面诊断和修复工具集）</li>
+</ol>
+<p><strong>MED-V加强了对VirtualPC镜像的分发和管理，提供了对VPC中程序的无缝用户体验，MED-V通过与本地客户端的MicrosoftVirtualPC相结合，可以创建、分发、集中管理VirtualPC的镜像</strong>。MED-V用于在大型企业内部署VirtualPC。MED-Vv1基于VirtualPC2007构建，帮助企业用户在应用程序不兼容的时候升级到WindowsVista。MED-Vv2增加对Windows7和WindowsVirtualPC的支持。<br>同样都是在Windows7系统中发布出不兼容的应用程序或解决兼容性问题，但是他们应用的场景各不相同，<strong>WindowsXPMode旨在帮助小型企业用户在Windows7桌面上运行他们的WindowsXP应用程序</strong>。而且不能对虚拟的XP系统进行集中化管理与配置；<strong>而MED-V主要面向IT专业人员，MED-V支持在较大型组织中部署VirtualPC</strong>。MED-V提供了集中式管理、基于策略的配置和虚拟映像传递，以降低VirtualPC部署的成本。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/pychallenge/">pychallenge</a>
-  </div>
-
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/python/">python</a>
+  <a class="article-category-link" href="/categories/运维/">运维</a>
 </div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://heliar-mk.info/2014/07/06/2014-7-6-level7/" data-title="python-challenge-level7 | heliar&#39;s blog" data-tsina="null" class="share clearfix">
+  <div data-url="http://heliar-mk.info/2014/05/22/2014-7-7-virtualization/" data-title="虚拟化--Windows xp mode,Med-v,app-v等的区别 | heliar&#39;s blog" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -159,18 +123,18 @@ print(<span class="string">""</span>.join((chr(i) <span class="keyword">for</spa
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2014/07/09/mysql外键建立失败原因/" title="mysql外键建立失败原因">
+ <a href="/2014/07/05/2014-7-5-level3/" title="python-challenge-level3">
   <strong>PREVIOUS:</strong><br/>
   <span>
-  mysql外键建立失败原因</span>
+  python-challenge-level3</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2014/07/05/2014-7-5-emacs快捷键/"  title="Emacs基本操作">
+<a href="/2014/05/12/NLB-与-Failover-cluster的区别/"  title="NLB 与 Failover cluster的区别">
  <strong>NEXT:</strong><br/> 
- <span>Emacs基本操作
+ <span>NLB 与 Failover cluster的区别
 </span>
 </a>
 </div>
@@ -187,7 +151,7 @@ print(<span class="string">""</span>.join((chr(i) <span class="keyword">for</spa
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#用户状态虚拟化"><span class="toc-number">1.</span> <span class="toc-text">用户状态虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用程序虚拟化"><span class="toc-number">2.</span> <span class="toc-text">应用程序虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#表示层虚拟化"><span class="toc-number">3.</span> <span class="toc-text">表示层虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务器端虚拟化"><span class="toc-number">4.</span> <span class="toc-text">服务器端虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#桌面虚拟化"><span class="toc-number">5.</span> <span class="toc-text">桌面虚拟化</span></a></li></ol>
   </div>
 
 <div id="asidepart">

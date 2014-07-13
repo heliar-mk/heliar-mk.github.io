@@ -4,16 +4,18 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>python-challenge-level7 | heliar&#39;s blog</title>
+    <title>rpm 软件包管理 | heliar&#39;s blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Kai Guan">
     
-    <meta name="description" content="第七关的页面上只有一张图片，图片中央有一条明显与其余部分不同的灰阶图案。因无法找到别的提示，故以此为分析入口。
-分析过程采用python的PIL(python image library)库进行处理
-具体请参考:PIL文档
-注:安装pil过程中要装上jepglib库和zlib库。
-读入图片对象后，采">
+    <meta name="description" content="大多数开源软件都是以源代码形式发布的，源代码形式程序安装流程一般如下：
+
+./configure    检查编译环境、相关库文件以及配置参数并生成makefile
+make           将源代码编译为可执行文件
+make install  安装编译好的可执行文件
+
+RPM（redhat Pa">
     
     
     
@@ -63,15 +65,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/07/06/2014-7-6-level7/" title="python-challenge-level7" itemprop="url">python-challenge-level7</a>
+      <a href="/2013/07/31/rpm-软件包管理/" title="rpm 软件包管理" itemprop="url">rpm 软件包管理</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://heliar-mk.info" title="Kai Guan">Kai Guan</a>
     </p>
   <p class="article-time">
-    <time datetime="2014-07-06T12:54:17.000Z" itemprop="datePublished">7月 6 2014</time>
-    更新日期:<time datetime="2014-07-06T13:01:10.000Z" itemprop="dateModified">7月 6 2014</time>
+    <time datetime="2013-07-31T13:07:32.000Z" itemprop="datePublished">7月 31 2013</time>
+    更新日期:<time datetime="2014-07-13T13:14:59.000Z" itemprop="dateModified">7月 13 2014</time>
     
   </p>
 </header>
@@ -83,73 +85,68 @@
 		
 		</div>
 		
-		<p>第七关的页面上只有一张图片，图片中央有一条明显与其余部分不同的灰阶图案。因无法找到别的提示，故以此为分析入口。</p>
-<p>分析过程采用python的PIL(python image library)库进行处理</p>
-<p>具体请参考:<a href="http://effbot.org/imagingbook/" target="_blank" rel="external">PIL文档</a></p>
-<p>注:安装pil过程中要装上jepglib库和zlib库。</p>
-<p>读入图片对象后，采用<code>getpixal</code>方法分析第一列像素的rgba值。发现在高度坐标为43-51的部分rgb三个值均相等。接着向右采样了几列，确定图片中的灰度块所处的高度坐标为43-51。</p>
-<p>接下来对所有的宽度坐标进行采样，转换成ASCII码后发现除了第一个字母，后面所有的字母均重复7次。</p>
-<p><code>sssssmmmmmmmaaaaaaarrrrrrrttttttt...</code></p>
-<p>故采用7为步进进行采样，保存所有RGB值相等的点的R值并转换为ASCII码并输出:</p>
-<p><code>smart guy, you made it. the next level is [105, 110, 116, 101, 103, 114, 105, 116, 121]</code></p>
-<p>对后面的列表再做一次转换得到下一关的入口:integrity</p>
-<p>代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-</pre></td><td class="code"><pre><span class="keyword">from</span> PIL <span class="keyword">import</span> Image
- 
-im=Image.open(<span class="string">'oxygen.png'</span>)
-w=im.size[<span class="number">0</span>]
-RGBlist=[]
-h=<span class="number">43</span>
-<span class="keyword">for</span> w <span class="keyword">in</span> range(<span class="number">0</span>,w,<span class="number">7</span>):
-    RGBdata=im.getpixel((w,h))
-    <span class="keyword">if</span>(RGBdata[<span class="number">0</span>]==RGBdata[<span class="number">1</span>] <span class="keyword">and</span> RGBdata[<span class="number">1</span>]==RGBdata[<span class="number">2</span>]):
-        RGBlist.append(RGBdata[<span class="number">0</span>])
-print(<span class="string">""</span>.join((chr(i) <span class="keyword">for</span> i <span class="keyword">in</span> RGBlist)))
-</pre></td></tr></table></figure>
-
-<p>注：第一次采用剔除重复值进行采样时，错把110，116，114识别为10，16，14.<br>错误部分代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-</pre></td><td class="code"><pre><span class="keyword">if</span> RGBlist==[]:
-    RGBlist.append(RGBdata[<span class="number">0</span>])
-<span class="keyword">elif</span>(RGBlist[-<span class="number">1</span>]!=RGBdata[<span class="number">0</span>]):
-    RGBlist.append(RGBdata[<span class="number">0</span>])
-</pre></td></tr></table></figure>
-
-<p>更多答案请参考：<a href="http://www.pythonchallenge.com/pcc/def/integrity.html" target="_blank" rel="external">pychallenge-level7 解法</a></p>
+		<p>大多数开源软件都是以源代码形式发布的，源代码形式程序安装流程一般如下：</p>
+<ul>
+<li>./configure    检查编译环境、相关库文件以及配置参数并生成makefile</li>
+<li>make           将源代码编译为可执行文件</li>
+<li>make install  安装编译好的可执行文件</li>
+</ul>
+<p>RPM（redhat Package Manager）是为了方便软件管理使用所开发的一套开源软件格式，RPM的设计目标如下：</p>
+<ul>
+<li>使用简单</li>
+<li>以单一软件包格式发布（.rpm文件）</li>
+<li>可升级</li>
+<li>追踪依赖关系</li>
+<li>保存软件基本信息</li>
+<li>软件验证功能</li>
+<li>支持多平台</li>
+</ul>
+<hr>
+<p><strong>RPM基础命令</strong>：</p>
+<ul>
+<li>安装软件：rpm -i linuxcast-soft.rpm</li>
+<li>卸载软件：rpm -e linuxcast-soft</li>
+<li>升级形式安装：rpm -U linuxcast-soft-new.rpm</li>
+</ul>
+<p><strong>常用参数</strong>：</p>
+<ul>
+<li>-v  显示详细信息</li>
+<li>-h  显示文本进度条</li>
+</ul>
+<p><strong>RPM常用查询命令</strong>：</p>
+<ul>
+<li>rpm -qa   列出所有已安装的rpm软件</li>
+<li>rpm -qf filename  查询指定文件属于哪个rpm包</li>
+<li>rpm -qi packagename  查询软件包的信息</li>
+<li>rpm -ql packagename  查询指定软件包包含的文件</li>
+<li>rpm -qip software.rpm 查询rpm文件的信息</li>
+<li>rpm -qilp software.rpm  查询rpm文件包含的文件</li>
+</ul>
+<p><strong>RPM软件验证命令</strong>：</p>
+<ul>
+<li>rpm -K software.rpm</li>
+<li>rpm -V softname</li>
+</ul>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/pychallenge/">pychallenge</a>
+  <span></span> <a href="/tags/rpm/">rpm</a>
   </div>
 
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/python/">python</a>
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
 </div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://heliar-mk.info/2014/07/06/2014-7-6-level7/" data-title="python-challenge-level7 | heliar&#39;s blog" data-tsina="null" class="share clearfix">
+  <div data-url="http://heliar-mk.info/2013/07/31/rpm-软件包管理/" data-title="rpm 软件包管理 | heliar&#39;s blog" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -159,21 +156,13 @@ print(<span class="string">""</span>.join((chr(i) <span class="keyword">for</spa
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2014/07/09/mysql外键建立失败原因/" title="mysql外键建立失败原因">
+ <a href="/2013/07/31/linux-文件基本操作/" title="linux 文件基本操作">
   <strong>PREVIOUS:</strong><br/>
   <span>
-  mysql外键建立失败原因</span>
+  linux 文件基本操作</span>
 </a>
 </div>
 
-
-<div class="next">
-<a href="/2014/07/05/2014-7-5-emacs快捷键/"  title="Emacs基本操作">
- <strong>NEXT:</strong><br/> 
- <span>Emacs基本操作
-</span>
-</a>
-</div>
 
 </nav>
 

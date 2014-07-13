@@ -4,12 +4,16 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>虚拟化--Windows xp mode,Med-v,app-v等的区别 | heliar&#39;s blog</title>
+    <title>linux-多命令协作 | heliar&#39;s blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Kai Guan">
     
-    <meta name="description" content="“XP模式”的基本实现方式就是通过在后台运行一个虚拟的WindowsXP，把软件通过虚拟化的方式，在Windows7中展现出来。这种虚拟化技术目前非常火热，各大厂商也都已经拥有相对应的虚拟化产品，而微软在这个虚拟化领域也已经推出了非常全面的产品体系，这当然不仅仅是我们所说的XP模式，还包括用户状态虚">
+    <meta name="description" content="开源文化的核心理念之一就是不要重复发明轮子，很多开源软件都大量使用了其他开源软件或功能组建，同样，Linux中的命令也往往只实现某个特定的、单一的功能，复杂功能往往都是通过多命令协作完成的
+管道及重定向就是Linux多命令协作的基础机制
+Linux的Shell对数据流进行以下分类定义: 
+
+stdi">
     
     
     
@@ -59,15 +63,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/07/07/2014-7-7-virtualization/" title="虚拟化--Windows xp mode,Med-v,app-v等的区别" itemprop="url">虚拟化--Windows xp mode,Med-v,app-v等的区别</a>
+      <a href="/2013/07/31/linux多命令协作/" title="linux-多命令协作" itemprop="url">linux-多命令协作</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://heliar-mk.info" title="Kai Guan">Kai Guan</a>
     </p>
   <p class="article-time">
-    <time datetime="2014-07-07T02:08:17.000Z" itemprop="datePublished">7月 7 2014</time>
-    更新日期:<time datetime="2014-07-08T12:35:34.000Z" itemprop="dateModified">7月 8 2014</time>
+    <time datetime="2013-07-31T13:19:14.000Z" itemprop="datePublished">7月 31 2013</time>
+    更新日期:<time datetime="2014-07-13T13:29:22.000Z" itemprop="dateModified">7月 13 2014</time>
     
   </p>
 </header>
@@ -76,49 +80,48 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#用户状态虚拟化"><span class="toc-number">1.</span> <span class="toc-text">用户状态虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用程序虚拟化"><span class="toc-number">2.</span> <span class="toc-text">应用程序虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#表示层虚拟化"><span class="toc-number">3.</span> <span class="toc-text">表示层虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务器端虚拟化"><span class="toc-number">4.</span> <span class="toc-text">服务器端虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#桌面虚拟化"><span class="toc-number">5.</span> <span class="toc-text">桌面虚拟化</span></a></li></ol>
+		
 		</div>
 		
-		<p>“XP模式”的基本实现方式就是通过在后台运行一个虚拟的WindowsXP，把软件通过虚拟化的方式，在Windows7中展现出来。这种虚拟化技术目前非常火热，各大厂商也都已经拥有相对应的虚拟化产品，而微软在这个虚拟化领域也已经推出了非常全面的产品体系，这当然不仅仅是我们所说的XP模式，还包括用<br>户状态虚拟化、应用程序虚拟化、桌面虚拟化、展现层虚拟化、服务器虚拟化</p>
-<h2 id="用户状态虚拟化">用户状态虚拟化</h2>
-<p>包含的微软产品为Windows7：<em>文件夹重定向、脱机文件和漫游用户配置文件</em>（文件夹重定向和脱机文件是支持IT人员将用户数据和设置重定向到中央网络位置的Windows特性）；</p>
-<h2 id="应用程序虚拟化">应用程序虚拟化</h2>
-<p>包含的微软产品为MicrosoftApplicationVirtualization，也就是传说中的App-V，<strong>所谓应用程序虚拟化就是将应用程序进行虚拟化打包操作</strong>，让虚拟的应用程序独立于操作系统层面而独立存在，<strong>应用程序虚拟化消除了应用程序之间的冲突，使两个互相不兼容的程序能够同时并存</strong>。这种基础结构使应用程序能够随需应变，并且它们只能在经过许可的机器上运行（无论是物理机还是虚拟机）。应用程序虚拟化需要依托于网络，但是并不局限于网络，在离线模式下用户仍可以使用虚拟化应用程序。</p>
-<h2 id="表示层虚拟化">表示层虚拟化</h2>
-<p>包含的微软产品为WindowsServerTerminalServices，所谓的TerminalServices虚拟化就是整个桌面或具体应用程序的表示层（简单理解为用户界面），使组织能够将应用程序和数据整合到数据中心中，同时提供对本地和远程用户的广泛访问。</p>
-<h2 id="服务器端虚拟化">服务器端虚拟化</h2>
-<p>包含的微软产品包括WindowsServer2008R2中的Hyper-V以及VirtualServer2008R2，Hyper-V是Microsoft提供的下一代基于管理程序的虚拟化技术。</p>
-<h2 id="桌面虚拟化">桌面虚拟化</h2>
-<p>有2种代表性产品，一个为<strong>VirtualPC</strong>，另一个为<strong>MicrosoftEnterpriseDesktopVirtualization</strong>。今天所介绍的XP模式在使用过程中会调用VirtualPC，所以WindowsXPMode就包含在桌面虚拟化层中。那么同样都是在桌面虚拟化层中，XPMode与MicrosoftEnterpriseDesktopVirtualization（以后简称MED-V）又有什么区别与联系呢？首先让我们来了解一下什么是MED-V。MED-V是MDOP组件之一，MDOP（MicrosoftDesktopOptimizationPack）是微软出品的一套企业级桌面优化管理的解决方案，包含六个组件：</p>
-<ol>
-<li>ApplicationVirtualization（应用程序虚拟化）</li>
-<li>MicrosoftEnterpriseDesktopVirtualization（微软企业桌面虚拟化）</li>
-<li>SystemCenterDesktopErrorMonitoring（桌面错误监控系统）</li>
-<li>AssetInventoryService（资产管理服务）</li>
-<li>AdvancedGroupPolicyManagement（高级组策略管理工具）</li>
-<li>DiagnosticsandRecoveryToolset（桌面诊断和修复工具集）</li>
-</ol>
-<p><strong>MED-V加强了对VirtualPC镜像的分发和管理，提供了对VPC中程序的无缝用户体验，MED-V通过与本地客户端的MicrosoftVirtualPC相结合，可以创建、分发、集中管理VirtualPC的镜像</strong>。MED-V用于在大型企业内部署VirtualPC。MED-Vv1基于VirtualPC2007构建，帮助企业用户在应用程序不兼容的时候升级到WindowsVista。MED-Vv2增加对Windows7和WindowsVirtualPC的支持。<br>同样都是在Windows7系统中发布出不兼容的应用程序或解决兼容性问题，但是他们应用的场景各不相同，<strong>WindowsXPMode旨在帮助小型企业用户在Windows7桌面上运行他们的WindowsXP应用程序</strong>。而且不能对虚拟的XP系统进行集中化管理与配置；<strong>而MED-V主要面向IT专业人员，MED-V支持在较大型组织中部署VirtualPC</strong>。MED-V提供了集中式管理、基于策略的配置和虚拟映像传递，以降低VirtualPC部署的成本。</p>
+		<p>开源文化的核心理念之一就是不要重复发明轮子，很多开源软件都大量使用了其他开源软件或功能组建，同样，Linux中的命令也往往只实现某个特定的、单一的功能，复杂功能往往都是通过多命令协作完成的</p>
+<p>管道及重定向就是Linux多命令协作的基础机制</p>
+<p>Linux的Shell对数据流进行以下分类定义: </p>
+<ul>
+<li><code>stdin</code> :标准输入,编号为0,默认:键盘</li>
+<li><code>stdout</code>:标准输出,编号为1,默认:终端</li>
+<li><code>stderr</code>:标准错误,编号为2,默认:终端</li>
+</ul>
+<p>重定向用来控制终端数据流：</p>
+<ul>
+<li><code>&gt;</code>       将标准输入以覆盖形式重定向到指定文件，如：ls &gt; outfile</li>
+<li><code>&gt;&gt;</code>      将标准输入以追加形式重定向到指定文件，如：ls &gt;&gt; outfile</li>
+<li><code>&lt;</code>       重定向标准输入   如：grep linuxcast &lt; /etc/passwd</li>
+<li><code>2&gt;</code>      重定向标准错误(例如：2&gt; /dev/null)</li>
+<li><code>2&gt;&amp;1</code>    将标准错误合并到标准输出中</li>
+</ul>
+<p>管道“|”用以将一个命令的标准输出作为另一个命令的标准输入：</p>
+<ul>
+<li><p>命令1<code>|</code>命令2</p>
+</li>
+<li><p>管道通常用来组合不同命令</p>
+</li>
+<li>重定向通常用来保存输出信息</li>
+</ul>
   
 	</div>
 		<footer class="article-footer clearfix">
 
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/virtualization/">virtualization</a>
-  </div>
-
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/M$-Server/">M$ Server</a>
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
 </div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://heliar-mk.info/2014/07/07/2014-7-7-virtualization/" data-title="虚拟化--Windows xp mode,Med-v,app-v等的区别 | heliar&#39;s blog" data-tsina="null" class="share clearfix">
+  <div data-url="http://heliar-mk.info/2013/07/31/linux多命令协作/" data-title="linux-多命令协作 | heliar&#39;s blog" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -128,18 +131,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2014/07/09/mysql外键建立失败原因/" title="mysql外键建立失败原因">
+ <a href="/2014/05/12/NLB-与-Failover-cluster的区别/" title="NLB 与 Failover cluster的区别">
   <strong>PREVIOUS:</strong><br/>
   <span>
-  mysql外键建立失败原因</span>
+  NLB 与 Failover cluster的区别</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2014/07/06/2014-7-6-level7/"  title="python-challenge-level7">
+<a href="/2013/07/31/linux-文件基本操作/"  title="linux 文件基本操作">
  <strong>NEXT:</strong><br/> 
- <span>python-challenge-level7
+ <span>linux 文件基本操作
 </span>
 </a>
 </div>
@@ -156,7 +159,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#用户状态虚拟化"><span class="toc-number">1.</span> <span class="toc-text">用户状态虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用程序虚拟化"><span class="toc-number">2.</span> <span class="toc-text">应用程序虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#表示层虚拟化"><span class="toc-number">3.</span> <span class="toc-text">表示层虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务器端虚拟化"><span class="toc-number">4.</span> <span class="toc-text">服务器端虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#桌面虚拟化"><span class="toc-number">5.</span> <span class="toc-text">桌面虚拟化</span></a></li></ol>
+  
   </div>
 
 <div id="asidepart">
@@ -170,13 +173,15 @@
 		
 			<li><a href="/categories/Database/" title="Database">Database<sup>1</sup></a></li>
 		
-			<li><a href="/categories/M$-Server/" title="M$ Server">M$ Server<sup>1</sup></a></li>
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>3</sup></a></li>
 		
 			<li><a href="/categories/Web/" title="Web">Web<sup>1</sup></a></li>
 		
 			<li><a href="/categories/python/" title="python">python<sup>5</sup></a></li>
 		
 			<li><a href="/categories/编辑器/" title="编辑器">编辑器<sup>2</sup></a></li>
+		
+			<li><a href="/categories/运维/" title="运维">运维<sup>2</sup></a></li>
 		
 		</ul>
 </div>
@@ -186,7 +191,7 @@
   <div class="tagcloudlist">
     <p class="asidetitle">标签云</p>
     <div class="tagcloudlist clearfix">
-       <a href="/tags/Emacs/" style="font-size: 10.00px;">Emacs</a><a href="/tags/Mysql/" style="font-size: 10.00px;">Mysql</a><a href="/tags/pychallenge/" style="font-size: 20.00px;">pychallenge</a><a href="/tags/vim-plugin/" style="font-size: 10.00px;">vim-plugin</a><a href="/tags/virtualization/" style="font-size: 10.00px;">virtualization</a><a href="/tags/webpy/" style="font-size: 10.00px;">web.py</a>
+       <a href="/tags/Emacs/" style="font-size: 10.00px;">Emacs</a><a href="/tags/Mysql/" style="font-size: 10.00px;">Mysql</a><a href="/tags/pychallenge/" style="font-size: 20.00px;">pychallenge</a><a href="/tags/rpm/" style="font-size: 10.00px;">rpm</a><a href="/tags/vim-plugin/" style="font-size: 10.00px;">vim-plugin</a><a href="/tags/webpy/" style="font-size: 10.00px;">web.py</a>
     </div>
   </div>
 
