@@ -4,18 +4,14 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>vim 插件 ctrlp 常用快捷键 | heliar&#39;s blog</title>
+    <title>MAK和KMS激活方式的区别 | heliar&#39;s blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Kai Guan">
     
-    <meta name="description" content=":CtrlP 或者:CtrlP[开始的目录]来激活插件的查找file模式
-:CtrlPBuffer或者:CtrlPMRU来激活插件的查找buffer或者查找MRU file 模式
-:CtrlPMixed同时激活三种模式
-
-获得其他指令的帮助:
-
-:help ctrlp-commands and :h">
+    <meta name="description" content="MAK
+Mutiple Activation Keys 可以给特定数目的电脑提供激活.
+每次激活一台电脑都会消耗掉激活池内的一个激活.例如一个MAK key 可以提供一百个激活,可以让100台电脑进行激活.MAK可以以MAK proxy Activation 和 MAK independent Ac">
     
     
     
@@ -65,15 +61,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/07/05/2014-7-5-ctrlpvim/" title="vim 插件 ctrlp 常用快捷键" itemprop="url">vim 插件 ctrlp 常用快捷键</a>
+      <a href="/2014/05/13/MAK和KMS激活方案/" title="MAK和KMS激活方式的区别" itemprop="url">MAK和KMS激活方式的区别</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://heliar-mk.info" title="Kai Guan">Kai Guan</a>
     </p>
   <p class="article-time">
-    <time datetime="2014-07-05T12:06:22.000Z" itemprop="datePublished">7月 5 2014</time>
-    更新日期:<time datetime="2014-07-05T15:36:03.000Z" itemprop="dateModified">7月 5 2014</time>
+    <time datetime="2014-05-13T14:06:47.000Z" itemprop="datePublished">5月 13 2014</time>
+    更新日期:<time datetime="2014-07-13T14:08:53.000Z" itemprop="dateModified">7月 13 2014</time>
     
   </p>
 </header>
@@ -82,54 +78,41 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MAK"><span class="toc-number">1.</span> <span class="toc-text">MAK</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#KMS"><span class="toc-number">2.</span> <span class="toc-text">KMS</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#部署方案:"><span class="toc-number">2.1.</span> <span class="toc-text">部署方案:</span></a></li></ol>
 		</div>
 		
-		<ul>
-<li><code>:CtrlP</code> 或者<code>:CtrlP[开始的目录]</code>来激活插件的查找file模式</li>
-<li><code>:CtrlPBuffer</code>或者<code>:CtrlPMRU</code>来激活插件的查找buffer或者查找MRU file 模式</li>
-<li><code>:CtrlPMixed</code>同时激活三种模式</li>
-</ul>
-<p>获得其他指令的帮助:</p>
+		<h2 id="MAK">MAK</h2>
+<p>Mutiple Activation Keys 可以给特定数目的电脑提供激活.</p>
+<p>每次激活一台电脑都会消耗掉激活池内的一个激活.例如一个MAK key 可以提供一百个激活,可以让100台电脑进行激活.MAK可以以MAK proxy Activation 和 MAK independent Activation 方式来进行激活.</p>
 <ul>
-<li><code>:help ctrlp-commands</code> and <code>:help crelp-extensions</code></li>
+<li><p>代理模式：一次性将所有待激活的机器统一后向微软激活服务器发送激活请求.</p>
+</li>
+<li><p>独立模式：需要每台电脑独立向微软激活服务器发送激活请求.</p>
+</li>
 </ul>
-<p>CtrlP插件激活以后:</p>
-<ul>
-<li><code>F5</code>刷新当前目录</li>
-<li><code>c-f</code>和<code>c-b</code>来回切换三种模式</li>
-<li><code>c-d</code>转换文件查找匹配模式，仅匹配文件名&lt;-&gt;匹配路径+文件名</li>
-<li><code>c-r</code>转换到正则匹配模式</li>
-<li><code>c-j</code>向下移动选择文件的箭头,<code>c-k</code>向上移动选择文件的箭头</li>
-<li><code>c-t</code>以标签页打开新文件<code>c-v</code>以左右分栏打开新文件<code>c-x</code>以上下分栏打开新文件</li>
-<li><code>c-n``c-p</code>选择输入命令历史记录里的前后字符串</li>
-<li><code>c-y</code>创建一个新文件及他的父目录</li>
-<li><code>c-z</code>用来标记多个文件，然后用<code>c-o</code>打开它们</li>
-<li><code>?</code>or<code>:help ctrlp-mappings</code>可以调出帮助</li>
-<li><code>..</code>可以到上一级的文件夹</li>
-<li>打开一个文件后<code>:25</code>可以跳到25行</li>
-<li>当打开多个文件时，在每个文件中<code>:diffthis</code>可以对比最多前四个文件的不同</li>
-</ul>
+<h2 id="KMS">KMS</h2>
+<p>KMS在开始激活前至少需要25台计算机连上KMS服务器.且每180天需要重新连接KMS服务器进行激活更新(不需要有因特网连接)。</p>
+<h3 id="部署方案:">部署方案:</h3>
+<ol>
+<li>如果你需要维护超过180天不连接网络的机器,部署MAK</li>
+<li>如果没有因特网连接,且机器超过25台,部署KMS</li>
+<li>如果没有因特网连接,但机器不超过25台,需要部署MAK,且用电话对系统进行激活.</li>
+</ol>
   
 	</div>
 		<footer class="article-footer clearfix">
 
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/vim-plugin/">vim-plugin</a>
-  </div>
-
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/编辑器/">编辑器</a>
+  <a class="article-category-link" href="/categories/运维/">运维</a>
 </div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://heliar-mk.info/2014/07/05/2014-7-5-ctrlpvim/" data-title="vim 插件 ctrlp 常用快捷键 | heliar&#39;s blog" data-tsina="null" class="share clearfix">
+  <div data-url="http://heliar-mk.info/2014/05/13/MAK和KMS激活方案/" data-title="MAK和KMS激活方式的区别 | heliar&#39;s blog" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -139,18 +122,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2014/07/05/2014-7-5-emacs快捷键/" title="Emacs基本操作">
+ <a href="/2014/05/14/DFS/" title="DFS">
   <strong>PREVIOUS:</strong><br/>
   <span>
-  Emacs基本操作</span>
+  DFS</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2014/07/05/2014-7-5-level6/"  title="python-challenge-level6">
+<a href="/2014/05/12/NLB-与-Failover-cluster的区别/"  title="NLB 与 Failover cluster的区别">
  <strong>NEXT:</strong><br/> 
- <span>python-challenge-level6
+ <span>NLB 与 Failover cluster的区别
 </span>
 </a>
 </div>
@@ -167,7 +150,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MAK"><span class="toc-number">1.</span> <span class="toc-text">MAK</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#KMS"><span class="toc-number">2.</span> <span class="toc-text">KMS</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#部署方案:"><span class="toc-number">2.1.</span> <span class="toc-text">部署方案:</span></a></li></ol>
   </div>
 
 <div id="asidepart">

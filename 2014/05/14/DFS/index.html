@@ -4,18 +4,18 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>vim 插件 ctrlp 常用快捷键 | heliar&#39;s blog</title>
+    <title>DFS | heliar&#39;s blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Kai Guan">
     
-    <meta name="description" content=":CtrlP 或者:CtrlP[开始的目录]来激活插件的查找file模式
-:CtrlPBuffer或者:CtrlPMRU来激活插件的查找buffer或者查找MRU file 模式
-:CtrlPMixed同时激活三种模式
+    <meta name="description" content="DFS即Distributed File System（分布式文件系统）的缩写.
 
-获得其他指令的帮助:
+组成部分
 
-:help ctrlp-commands and :h">
+DFS Namespace
+
+让你可以把不同服务器(在不同的site内)的共享文件夹合在一起,构成一个或者多个逻辑结构的名称空间.用户看到的名称空间都是一个单独的共享文件夹,内部包含一系列子文件夹.真实的">
     
     
     
@@ -65,15 +65,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/07/05/2014-7-5-ctrlpvim/" title="vim 插件 ctrlp 常用快捷键" itemprop="url">vim 插件 ctrlp 常用快捷键</a>
+      <a href="/2014/05/14/DFS/" title="DFS" itemprop="url">DFS</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://heliar-mk.info" title="Kai Guan">Kai Guan</a>
     </p>
   <p class="article-time">
-    <time datetime="2014-07-05T12:06:22.000Z" itemprop="datePublished">7月 5 2014</time>
-    更新日期:<time datetime="2014-07-05T15:36:03.000Z" itemprop="dateModified">7月 5 2014</time>
+    <time datetime="2014-05-14T14:12:18.000Z" itemprop="datePublished">5月 14 2014</time>
+    更新日期:<time datetime="2014-07-13T14:16:22.000Z" itemprop="dateModified">7月 13 2014</time>
     
   </p>
 </header>
@@ -85,51 +85,37 @@
 		
 		</div>
 		
-		<ul>
-<li><code>:CtrlP</code> 或者<code>:CtrlP[开始的目录]</code>来激活插件的查找file模式</li>
-<li><code>:CtrlPBuffer</code>或者<code>:CtrlPMRU</code>来激活插件的查找buffer或者查找MRU file 模式</li>
-<li><code>:CtrlPMixed</code>同时激活三种模式</li>
-</ul>
-<p>获得其他指令的帮助:</p>
+		<p><strong>DFS</strong>即Distributed File System（分布式文件系统）的缩写.</p>
+<hr>
+<p><strong>组成部分</strong></p>
 <ul>
-<li><code>:help ctrlp-commands</code> and <code>:help crelp-extensions</code></li>
+<li>DFS Namespace</li>
 </ul>
-<p>CtrlP插件激活以后:</p>
+<p>让你可以把不同服务器(在不同的site内)的共享文件夹合在一起,构成一个或者多个逻辑结构的名称空间.用户看到的名称空间都是一个单独的共享文件夹,内部包含一系列子文件夹.真实的共享文件结构对用户是隐藏的,而且这种结构提供了容错功能同时具有自动链接用户本地共享文件夹的功能.(当本地具有所需的共享文件夹时,免去了通过WAN链接)</p>
 <ul>
-<li><code>F5</code>刷新当前目录</li>
-<li><code>c-f</code>和<code>c-b</code>来回切换三种模式</li>
-<li><code>c-d</code>转换文件查找匹配模式，仅匹配文件名&lt;-&gt;匹配路径+文件名</li>
-<li><code>c-r</code>转换到正则匹配模式</li>
-<li><code>c-j</code>向下移动选择文件的箭头,<code>c-k</code>向上移动选择文件的箭头</li>
-<li><code>c-t</code>以标签页打开新文件<code>c-v</code>以左右分栏打开新文件<code>c-x</code>以上下分栏打开新文件</li>
-<li><code>c-n``c-p</code>选择输入命令历史记录里的前后字符串</li>
-<li><code>c-y</code>创建一个新文件及他的父目录</li>
-<li><code>c-z</code>用来标记多个文件，然后用<code>c-o</code>打开它们</li>
-<li><code>?</code>or<code>:help ctrlp-mappings</code>可以调出帮助</li>
-<li><code>..</code>可以到上一级的文件夹</li>
-<li>打开一个文件后<code>:25</code>可以跳到25行</li>
-<li>当打开多个文件时，在每个文件中<code>:diffthis</code>可以对比最多前四个文件的不同</li>
+<li>DFS Replication</li>
 </ul>
+<p>通过LAN或者WAN在不同的服务器间同步文件夹.它采用Remote Differential Compression 协议,仅对那些从上次复制后发生变化的文件进行更新.<br>DFS Replication 可以和DFS Namespaces 一起使用也可以单独使用.</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/vim-plugin/">vim-plugin</a>
+  <span></span> <a href="/tags/DFS/">DFS</a>
   </div>
 
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/编辑器/">编辑器</a>
+  <a class="article-category-link" href="/categories/运维/">运维</a>
 </div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://heliar-mk.info/2014/07/05/2014-7-5-ctrlpvim/" data-title="vim 插件 ctrlp 常用快捷键 | heliar&#39;s blog" data-tsina="null" class="share clearfix">
+  <div data-url="http://heliar-mk.info/2014/05/14/DFS/" data-title="DFS | heliar&#39;s blog" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -139,18 +125,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2014/07/05/2014-7-5-emacs快捷键/" title="Emacs基本操作">
+ <a href="/2014/05/22/2014-7-7-virtualization/" title="虚拟化--Windows xp mode,Med-v,app-v等的区别">
   <strong>PREVIOUS:</strong><br/>
   <span>
-  Emacs基本操作</span>
+  虚拟化--Windows xp mode,Med-v,app-v等的区别</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2014/07/05/2014-7-5-level6/"  title="python-challenge-level6">
+<a href="/2014/05/13/MAK和KMS激活方案/"  title="MAK和KMS激活方式的区别">
  <strong>NEXT:</strong><br/> 
- <span>python-challenge-level6
+ <span>MAK和KMS激活方式的区别
 </span>
 </a>
 </div>
